@@ -179,3 +179,20 @@ def test_data_resource_not_included_again(single_comment, client):
     # The comment in the data attribute must not be included again.
     expected_comment_count -= 1
     assert comment_count == expected_comment_count, "Comment count incorrect"
+
+
+def test_hyperlinked_single_blog_included(single_entry, client):
+    response = client.get(reverse("entry-detail", kwargs={'pk': single_entry.pk}) +
+                          '?include=blog_hyperlinked')
+    included = response.json().get('included')
+
+    assert included == {'type': 'blog', 'id': single_entry.blog_id}
+
+    # comment_count = len([resource for resource in included if resource["type"] == "comments"])
+    # expected_comment_count = single_entry.comments.count()
+    # assert comment_count == expected_comment_count, 'Detail comment count is incorrect'
+    #
+    # author_bio_count = len([resource for resource in included if resource["type"] == "authorBios"])
+    # expected_author_bio_count = single_entry.comments.filter(author__bio__isnull=False).count()
+    # assert author_bio_count == expected_author_bio_count, 'Detail author bio count is incorrect'
+

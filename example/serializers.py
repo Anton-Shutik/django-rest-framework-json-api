@@ -97,6 +97,9 @@ class EntrySerializer(serializers.ModelSerializer):
         'featured': 'example.serializers.EntrySerializer',
         'suggested': 'example.serializers.EntrySerializer',
         'tags': 'example.serializers.TaggedItemSerializer',
+        'blog_hyperlinked': 'example.serializers.BlogSerializer',
+        'comments_hyperlinked': 'example.serializers.CommentSerializer',
+        'featured_hyperlinked': 'example.serializers.EntrySerializer',
     }
 
     body_format = serializers.SerializerMethodField()
